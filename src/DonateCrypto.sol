@@ -50,5 +50,16 @@ contract DonateCrypto {
         campaigns[nexId] = newCampaign;
     }
 
+    // info: payable usado para passar valores para pagamentos
+
+    function donate(uint256 id) public payable {
+        // validar se o valor é positivo
+        require(msg.value > 0, "You must send a donation value > 0");
+        // validar se a campanha está ativa
+        require(campaigns[id].active == true, "Cannot donate to this campaign");
+
+        // acrescenta o valor ao saldo da campanha
+        campaigns[id].balance += msg.value;
+    }
 
 }
