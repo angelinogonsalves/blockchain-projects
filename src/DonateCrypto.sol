@@ -26,6 +26,7 @@ contract DonateCrypto {
     // info: calldata somente leitura e memory permite mudar o valor
     // info: public é porque qualquer um pode chamar essa função
 
+    // adiciona nova campanha
     function addCampaign(
         string calldata title,
         string calldata description,
@@ -52,6 +53,7 @@ contract DonateCrypto {
 
     // info: payable usado para passar valores para pagamentos
 
+    // faz pagamento para a campanha
     function donate(uint256 id) public payable {
         // validar se o valor é positivo
         require(msg.value > 0, "You must send a donation value > 0");
@@ -60,6 +62,26 @@ contract DonateCrypto {
 
         // acrescenta o valor ao saldo da campanha
         campaigns[id].balance += msg.value;
+    }
+
+    // faz saque da campanha
+    function withdraw(uint256 id) public {
+        // traz para a memória a campanha
+        Campaign memory campaign = campaigns[id];
+        // valida se quem chamou é o autor da campanha
+        require(campaign.author == msg.sender, "You do not have permission");
+        // valida se a campanha esta ativa
+        require(campaign.active == true, "This campaign is closed");
+        // valida se a campanha tem mais saldo que a taxa
+        require(campaign.balance > fee, "This campaign does not have enough balance");
+
+        // seta o endereço do autor para um endereço pagável
+        address payable recipient = payable(campaign.author);
+        // chamada para transferir valores
+        recipient.call{value: campaign.balance - fee}("");
+        
+        // fecha a campanha
+        campaigns[id].active = false;
     }
 
 }
