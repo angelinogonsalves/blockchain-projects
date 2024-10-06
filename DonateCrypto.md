@@ -10,6 +10,7 @@ cd dapp
 # instala o bootstrap
 # instala o ether.js que é para conexao com a blockchain, é mais recente que o web3.js sendo mais leve e simples
 npm install bootstrap react-bootstrap ethers
+npm install web3
 
 # compilar projeto para rodar no front
 npm run dev
