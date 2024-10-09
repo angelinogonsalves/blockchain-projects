@@ -3,7 +3,7 @@
 git checkout -b DonateCrypto
 git merge DonateCrypto
 
-# instalar o next.js é um framework frontend baseado no react
+// instalar o next.js é um framework frontend baseado no react
 npx create-next-app@latest dapp
 cd dapp
 
@@ -14,3 +14,7 @@ npm install web3
 
 # compilar projeto para rodar no front
 npm run dev
+
+
+# rodar o contrato
+forge script script/DonateCrypto.s.sol:DonateCrypto --rpc-url 127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80

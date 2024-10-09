@@ -2,9 +2,11 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Head from "next/head";
 import { useState } from "react";
+import { addCampaign } from "./services/Web3Service";
+import { errorToJSON } from "next/dist/server/render";
 
 export default function Create(){
-    
+
     const [campaign, setCampaign] = useState({});
     const [message, setMessage] = useState("");
 
@@ -14,6 +16,13 @@ export default function Create(){
 
     function btnSaveClick() {
         alert(JSON.stringify(campaign));
+        setMessage("Salvando.. aguarde..");
+        addCampaign(campaign)
+            .then(tx => JSON.stringify(tx))
+            .catch(err => {
+                console.log(err);
+                setMessage(err.message)
+            })
     }
 
     return (
@@ -52,6 +61,11 @@ export default function Create(){
                 <div className="col-6 mb-3">
                     <Link href="/" className="btn btn-secondary col-12 p-3">Voltar</Link>
                 </div>
+                {
+                    message
+                    ? <div className="alert alert-success p-3 col-6" role="alert">{message}</div>
+                    : <></>
+                }
                 <Footer />
             </div>
         </>

@@ -79,7 +79,7 @@ contract DonateCrypto {
         address payable recipient = payable(campaign.author);
         // chamada para transferir valores
         recipient.call{value: campaign.balance - fee}("");
-        
+
         // fecha a campanha
         campaigns[id].active = false;
     }
