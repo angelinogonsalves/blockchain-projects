@@ -1,5 +1,7 @@
 import Web3 from "web3";
 
+const CONTRACT_ADDRESS = "";
+
 export async function doLogin() {
     
     // valida se existe a metamask
@@ -15,7 +17,7 @@ export async function doLogin() {
 
     // verifica se o usuário possui contas ou permitiu a conexão
     if (!accounts || !accounts.length) {
-        throw new Error("Wallet not found/allowed");        
+        throw new Error("Wallet not found/allowed");
     }
 
     // retorna a primeira conta que ele deu permissão

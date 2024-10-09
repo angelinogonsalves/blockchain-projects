@@ -15,7 +15,7 @@ foundryup
 # iniciar ambiente
 forge init --force
 
-# compilar 
+# compilar
 forge build
 
 # test
